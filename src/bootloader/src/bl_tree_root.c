@@ -41,7 +41,38 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Variables
 ////////////////////////////////////////////////////////////////////////////////
+#if (defined(CPU_LPC54114J256BD64_cm4) || defined(CPU_LPC54114J256UK49_cm4))  //add by damon
 
+const flash_driver_interface_t g_flashDriverInterface = {
+    .version = {
+        .name   = kFLASH_DriverVersionName,
+        .major  = kFLASH_DriverVersionMajor,
+        .minor  = kFLASH_DriverVersionMinor,
+        .bugfix = kFLASH_DriverVersionBugfix
+    },
+    .flash_init               = FLASH_Init,
+    .flash_erase_all          = FLASH_EraseAll,
+    .flash_erase_all_unsecure = NULL,
+    .flash_erase              = FLASH_Erase,
+    .flash_program            = FLASH_Program,
+    .flash_get_security_state = FLASH_GetSecurityState,
+    .flash_security_bypass    = FLASH_SecurityBypass,
+    .flash_verify_erase_all   = FLASH_VerifyEraseAll,
+    .flash_verify_erase       = FLASH_VerifyErase,
+    .flash_verify_program     = FLASH_VerifyProgram,
+    .flash_get_property       = FLASH_GetProperty,
+    .flash_register_callback  = NULL,
+    .flash_program_once       = NULL,
+    .flash_read_once          = NULL,
+    .flash_read_resource      = NULL,
+    .flash_prepare_execute_in_ram_functions = NULL,
+    .flash_is_execute_only                  = NULL,
+    .flash_erase_all_execute_only_segments  = NULL,
+    .flash_verify_erase_all_execute_only_segments = NULL,
+    .flash_set_flexram_function = NULL,
+    .flash_program_section      = NULL,
+};
+#else
 //! @brief Function table for flash driver.
 const flash_driver_interface_t g_flashDriverInterface = {
     .version = {.name = kFLASH_DriverVersionName,
@@ -102,6 +133,8 @@ const flash_driver_interface_t g_flashDriverInterface = {
     .flash_program_section = NULL,
 #endif
 };
+
+#endif
 
 const aes_driver_interface_t g_aesInterface = {
 #if AES_SECURITY_SUPPORTED

@@ -138,6 +138,15 @@ extern const peripheral_control_interface_t g_uartControlInterface;
 extern const peripheral_byte_inteface_t g_uartByteInterface;
 //@}
 
+//! @name USART Peripheral Interfaces
+//@{
+//! @brief Control interface for the UART peripheral driver.
+extern const peripheral_control_interface_t g_usartControlInterface;
+
+//! @brief Byte I/O interface for the UART peripheral driver.
+extern const peripheral_byte_inteface_t g_usartByteInterface;
+//@}
+
 //! @name UART0 Peripheral Interfaces
 //@{
 //! @brief Control interface for the UART0 peripheral driver.

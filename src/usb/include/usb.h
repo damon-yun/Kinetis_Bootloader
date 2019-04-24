@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * All rights reserved.
+ * Copyright 2016 NXP
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -12,7 +12,7 @@
  *   list of conditions and the following disclaimer in the documentation and/or
  *   other materials provided with the distribution.
  *
- * o Neither the name of Freescale Semiconductor, Inc. nor the names of its
+ * o Neither the name of the copyright holder nor the names of its
  *   contributors may be used to endorse or promote products derived from this
  *   software without specific prior written permission.
  *
@@ -46,11 +46,11 @@
  * Definitions
  ******************************************************************************/
 /*! @brief Defines USB stack major version */
-#define USB_STACK_VERSION_MAJOR (0x01U)
+#define USB_STACK_VERSION_MAJOR (1U)
 /*! @brief Defines USB stack minor version */
-#define USB_STACK_VERSION_MINOR (0x00U)
+#define USB_STACK_VERSION_MINOR (7U)
 /*! @brief Defines USB stack bugfix version */
-#define USB_STACK_VERSION_BUGFIX (0x00U)
+#define USB_STACK_VERSION_BUGFIX (0U)
 
 /*! @brief USB stack version definition */
 #define USB_MAKE_VERSION(major, minor, bugfix) (((major) << 16) | ((minor) << 8) | (bugfix))
@@ -77,6 +77,8 @@ typedef enum _usb_status
     kStatus_USB_TransferCancel, /*!< The transfer cancelled */
     kStatus_USB_BandwidthFail,  /*!< Allocate bandwidth failed */
     kStatus_USB_MSDStatusFail,  /*!< For MSD, the CSW status means fail */
+    kStatus_USB_EHCIAttached,
+    kStatus_USB_EHCIDetached,
 } usb_status_t;
 
 /*! @brief USB host handle type define */
@@ -93,11 +95,30 @@ typedef void *usb_otg_handle;
 typedef enum _usb_controller_index
 {
     kUSB_ControllerKhci0 = 0U, /*!< KHCI 0U */
-    kUSB_ControllerKhci1, /*!< KHCI 1U, Currently, there are no platforms which have two KHCI IPs, this is reserved
-                             to be used in the future. */
-    kUSB_ControllerEhci0, /*!< EHCI 0U */
-    kUSB_ControllerEhci1, /*!< EHCI 1U, Currently, there are no platforms which have two KHCI IPs, this is reserved
-                             to be used in the future. */
+    kUSB_ControllerKhci1 = 1U, /*!< KHCI 1U, Currently, there are no platforms which have two KHCI IPs, this is reserved
+                                  to be used in the future. */
+    kUSB_ControllerEhci0 = 2U, /*!< EHCI 0U */
+    kUSB_ControllerEhci1 = 3U, /*!< EHCI 1U, Currently, there are no platforms which have two EHCI IPs, this is reserved
+                                  to be used in the future. */
+
+    kUSB_ControllerLpcIp3511Fs0 = 4U, /*!< LPC USB IP3511 FS controller 0 */
+    kUSB_ControllerLpcIp3511Fs1 =
+        5U, /*!< LPC USB IP3511 FS controller 1, there are no platforms which have two IP3511 IPs, this is reserved
+              to be used in the future. */
+
+    kUSB_ControllerLpcIp3511Hs0 = 6U, /*!< LPC USB IP3511 HS controller 0 */
+    kUSB_ControllerLpcIp3511Hs1 =
+        7U, /*!< LPC USB IP3511 HS controller 1, there are no platforms which have two IP3511 IPs, this is reserved
+              to be used in the future. */
+
+    kUSB_ControllerOhci0 = 8U, /*!< OHCI 0U */
+    kUSB_ControllerOhci1 = 9U, /*!< OHCI 1U, Currently, there are no platforms which have two OHCI IPs, this is reserved
+                                  to be used in the future. */
+
+    kUSB_ControllerIp3516Hs0 = 10U, /*!< IP3516HS 0U */
+    kUSB_ControllerIp3516Hs1 =
+        11U, /*!< IP3516HS 1U, Currently, there are no platforms which have two IP3516HS IPs, this is reserved
+           to be used in the future. */
 } usb_controller_index_t;
 
 /**

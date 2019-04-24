@@ -102,7 +102,7 @@ status_t sram_init(void)
         map->endAddress = kSRAMSeparatrix + tmp * kSram_UpperPart - 1; // end of SRAM
     }
 #else
-#error "This function only applies to cm0plus family"
+//#error "This function only applies to cm0plus family"
 #endif // __CORE_CM0PLUS_H_GENERIC
 
     return kStatus_Success;

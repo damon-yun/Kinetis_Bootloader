@@ -274,7 +274,17 @@ typedef enum _flash_read_resource_option
 {
     kFLASH_ResourceOptionFlashIfr =
         0x00U, /*!< Select code for Program flash 0 IFR, Program flash swap 0 IFR, Data flash 0 IFR */
-    kFLASH_ResourceOptionVersionId = 0x01U /*!< Select code for Version ID*/
+    kFLASH_ResourceOptionVersionId = 0x01U, /*!< Select code for Version ID*/
+    
+    /** \brief read the part identification number */
+    kFLASH_ResourceOptionPidNumber = 0x00U,
+    /** \brief read the boot code version number */
+    kFLASH_ResourceOptionBootCode  = 0x01U,
+    /** \brief read the unique ID */
+    kFLASH_ResourceOptionUID       = 0x03U,
+    /** \brief obtain a 32-bit signature value of the entire flash memory */
+    kFLASH_ResourceOptionSignature = 0x04U
+    
 } flash_read_resource_option_t;
 
 /*!

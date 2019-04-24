@@ -387,6 +387,8 @@ void usb_device_full_shutdown(const peripheral_descriptor_t *self)
         CLOCK_DisableClock(kCLOCK_Usbfs0);
     }
 #else
+    
+#if USB_DEVICE_CONFIG_KHCI
     if ((CONTROLLER_ID == kUSB_ControllerKhci0) && (SIM->SCGC4 & SIM_SCGC4_USBOTG_MASK))
     {
         // Disable the USB interrupt
@@ -398,6 +400,8 @@ void usb_device_full_shutdown(const peripheral_descriptor_t *self)
         // Turn off clocking to USB
         SIM->SCGC4 &= ~SIM_SCGC4_USBOTG_MASK;
     }
+#endif //USB_DEVICE_CONFIG_EHCI
+
 #endif // defined(PCC_BASE_ADDRS)
 #if USB_DEVICE_CONFIG_EHCI
     else if ((CONTROLLER_ID == kUSB_ControllerEhci0) && (SIM->SCGC3 & SIM_SCGC3_USBHS_MASK))

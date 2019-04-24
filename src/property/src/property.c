@@ -246,9 +246,12 @@ status_t bootloader_property_init(void)
 #if defined(SIM_UIDH)
     propertyStore->UniqueDeviceId.uidh = SIM_RD_UIDH(SIM);
 #endif
+    
+#ifndef  CPU_LPC54114J256BD64_cm4
     propertyStore->UniqueDeviceId.uidmh = SIM->UIDMH;
     propertyStore->UniqueDeviceId.uidml = SIM->UIDML;
     propertyStore->UniqueDeviceId.uidl = SIM->UIDL;
+#endif
 
     // Set address range of RAM in property interface
     const memory_map_entry_t *map = (memory_map_entry_t *)&g_bootloaderContext.memoryMap[kIndexSRAM];
@@ -383,7 +386,11 @@ status_t bootloader_property_get(uint8_t tag, uint8_t id, const void **value, ui
 #if BOOTLOADER_HOST
             s_propertyReturnValue = 0;
 #else
+        
+#ifndef  CPU_LPC54114J256BD64_cm4
             s_propertyReturnValue = SIM->SDID;
+#endif  // CPU_LPC54114J256BD64_cm4
+        
 #endif // BOOTLOADER_HOST
             returnValue = &s_propertyReturnValue;
             break;

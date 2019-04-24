@@ -44,8 +44,11 @@
 // Definitions
 ////////////////////////////////////////////////////////////////////////////////
 extern void init_interrupts(void);
-void flash_cache_clear(flash_config_t *config);
+#if (defined(CPU_LPC54114J256BD64_cm4) || defined(CPU_LPC54114J256UK49_cm4))  //add by damon
 
+#else
+void flash_cache_clear(flash_config_t *config);
+#endif
 ////////////////////////////////////////////////////////////////////////////////
 // Code
 ////////////////////////////////////////////////////////////////////////////////
@@ -56,8 +59,12 @@ void shutdown_cleanup(shutdown_type_t shutdown)
 #if !defined(BOOTLOADER_HOST)
     if (shutdown != kShutdownType_Reset)
     {
+#if (defined(CPU_LPC54114J256BD64_cm4) || defined(CPU_LPC54114J256UK49_cm4))  //add by damon
+        
+#else
         // Clear (flush) the flash cache.
         flash_cache_clear(NULL);
+#endif
     }
 
     if (shutdown != kShutdownType_Cleanup)
